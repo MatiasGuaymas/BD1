@@ -11,6 +11,7 @@ DELIMITER //
 CREATE PROCEDURE `agregar_siniestro`(IN póliza INTEGER, IN descripcion_siniestro VARCHAR(45), IN taller INTEGER, IN perito INTEGER, IN nombre_perito VARCHAR(30), IN apellido_perito VARCHAR(30), IN evaluación VARCHAR(30))
 BEGIN
     DECLARE current_date_only DATE;
+    DECLARE last_id INTEGER;
 
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
@@ -20,7 +21,7 @@ BEGIN
     START TRANSACTION;
     SET current_date_only = CURDATE();
 
-    INSERT INTO siniestro(#siniestro, fecha_denuncia, descripcion_siniestro, #taller, #póliza)
+    INSERT INTO siniestro(fecha_denuncia, descripcion_siniestro, #taller, #póliza)
     VALUES(current_date_only, descripcion_siniestro, taller, póliza); 
     
     SET last_id = LAST_INSERT_ID();
